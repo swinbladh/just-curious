@@ -1,4 +1,3 @@
-from unicodedata import name
 from pdfminer.high_level import extract_text
 from pdf2image import convert_from_path
 from PIL import Image
@@ -39,7 +38,6 @@ class PDF:
         return text
 
     def pdfToImage(self):
-        # https://www.geeksforgeeks.org/convert-pdf-to-image-using-python/
         images = convert_from_path(self.pdf)
         for image in range(len(images)):
             images[image].save(f"{self.imageStore}/page_{str(image)}.jpg", "JPEG")
@@ -47,7 +45,6 @@ class PDF:
         return None
 
     def readingTextFromImage(self):
-        # https://www.geeksforgeeks.org/python-reading-contents-of-pdf-using-ocr-optical-character-recognition/
         images = os.listdir(self.imageStore)
 
         pdfText = ""
@@ -75,7 +72,9 @@ class PDF:
 
         return None
 
+
 if __name__ == "__main__":
+    # pdfFile = "ocrTest.pdf"
     pdfFile = "textTest.pdf"
     ocr = False
     outputFile = "text.txt"
