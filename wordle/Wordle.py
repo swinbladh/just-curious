@@ -1,10 +1,19 @@
+# TODO: input and handle a letter with known position
+# TODO: Word frequency
+
+import json
+
+
 class Wordle:
     def __init__(self):
-        self.file = "words.txt"
-        self.words = self.getWords()
+        self.file = "word_freq.json"
+        self.wordFrequency = self.getWords()
+        self.words = list(self.wordFrequency.keys())
 
     def getWords(self):
-        words = open(self.file, "r").read().split("\n")
+        file = open(self.file)
+        words = json.load(file)
+
         return words
 
     def start(self):
@@ -22,7 +31,8 @@ class Wordle:
             if self.wordContainsAllLetters(word, letters):
                 wordList.append(word)
 
-        return wordList
+        sortedWordList = wordList.sort(key=self.getFrequency)
+        return sortedWordList
 
     def wordContainsAllLetters(self, word, letters):
         matches = self.getWordMatches(word, letters)
@@ -38,6 +48,9 @@ class Wordle:
                 matches += 1
 
         return matches
+
+    def getFrequency(self, word):
+        return self.wordFrequency[word]
 
 
 Wordle().start()
